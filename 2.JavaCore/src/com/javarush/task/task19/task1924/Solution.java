@@ -47,6 +47,7 @@ public class Solution {
                 }
             }
         }
+        scanner.close();
         list.stream().forEach(s -> out.println(s));
     }
 }
