@@ -54,4 +54,34 @@ public class Game2048 extends Game{
         setCellColor(x, y, color);
         setCellValueEx(x, y, color ,value!=0?Integer.toString(value):"");
     }
+    private boolean compressRow(int[] row){
+        boolean rezult = false;
+        for (int i = 0; i<row.length;i++){
+            if(row[i]==0){
+                for (int j = i+1; j < row.length; j++) {
+                    if (row[j]!=0){
+                        int temp = row[i];
+                        row[i] = row[j];
+                        row[j] = temp;
+                        rezult = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return rezult;
+    }
+    private boolean mergeRow(int[] row){
+        boolean rezult = false;
+        if(row.length==0) return rezult;
+        int i=0;
+        do{
+            if(row[i]==row[i+1]&&row[i]!=0){
+                row[i]*=2;
+                row[i+1]=0;
+                rezult=true;
+            }
+        }while(++i<(row.length-1));
+        return rezult;
+    }
 }
