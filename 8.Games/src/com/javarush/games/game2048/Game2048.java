@@ -71,6 +71,33 @@ public class Game2048 extends Game{
         }
         return rezult;
     }
+
+    @Override
+    public void onKeyPress(Key key) {
+        super.onKeyPress(key);
+        if (key==Key.LEFT){
+            moveLeft();    
+        } else if (key==Key.RIGHT){
+            moveRight();
+        }else if(key==Key.DOWN){
+            moveDown();
+        }else if(key==Key.UP){
+            moveUp();
+        }
+    }
+
+    private void moveUp() {
+    }
+
+    private void moveDown() {
+    }
+
+    private void moveLeft(){
+        
+    }
+    private void moveRight(){
+        
+    }
     private boolean mergeRow(int[] row){
         boolean rezult = false;
         if(row.length==0) return rezult;
