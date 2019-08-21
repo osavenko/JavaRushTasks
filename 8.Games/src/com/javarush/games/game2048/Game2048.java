@@ -4,6 +4,7 @@ import com.javarush.engine.cell.*;
 public class Game2048 extends Game{
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
+    private boolean isGameStopped = false;
 
     @Override
     public void initialize() {
@@ -25,15 +26,25 @@ public class Game2048 extends Game{
         }
     }
     private void createNewNumber(){
-        int posX = getRandomNumber(SIDE);
-        int posY = getRandomNumber(SIDE);
-        int rnd = getRandomNumber(10);
-        while (gameField[posX][posY]!=0){
-            posX = getRandomNumber(SIDE);
-            posY = getRandomNumber(SIDE);
+        if (getMaxTileValue()<2048) {
+            int posX = getRandomNumber(SIDE);
+            int posY = getRandomNumber(SIDE);
+            int rnd = getRandomNumber(10);
+            while (gameField[posX][posY] != 0) {
+                posX = getRandomNumber(SIDE);
+                posY = getRandomNumber(SIDE);
+            }
+            gameField[posX][posY] = rnd == 9 ? 4 : 2;
+        } else {
+            win();
         }
-        gameField[posX][posY] = rnd==9?4:2;
     }
+
+    private void win() {
+        isGameStopped = true;
+        showMessageDialog(Color.BLACK,"Сам в шоке, но таки да, ПОБЕДА", Color.YELLOW,16);
+    }
+
     private Color getColorByValue(int value){
         switch (value){
             case 2: return Color.DARKBLUE;
@@ -151,6 +162,14 @@ public class Game2048 extends Game{
                 gameField[i][j] = cloneGameField[i][j];
             }
         }
-
+    }
+    private int getMaxTileValue(){
+        int max = 0;
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                if(gameField[i][j]>max) max = gameField[i][j];
+            }
+        }
+        return max;
     }
 }
