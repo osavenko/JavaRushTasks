@@ -5,6 +5,7 @@ public class Game2048 extends Game{
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
     private boolean isGameStopped = false;
+    private int score = 0;
 
     @Override
     public void initialize() {
@@ -14,6 +15,9 @@ public class Game2048 extends Game{
         drawScene();
     }
     private void createGame(){
+        gameField = new int[SIDE][SIDE];
+        score = 0;
+        setScore(score);
         createNewNumber();
         createNewNumber();
     }
@@ -94,7 +98,15 @@ public class Game2048 extends Game{
             gameOver();
             return;
         };
-        if (key==Key.LEFT){
+
+        if (isGameStopped){
+            if (key==Key.SPACE){
+                createGame();
+                drawScene();
+                isGameStopped = false;
+                return;
+            }
+        } else if (key==Key.LEFT){
             moveLeft();
             drawScene();
         } else if (key==Key.RIGHT){
@@ -152,6 +164,8 @@ public class Game2048 extends Game{
             if(row[i]==row[i+1]&&row[i]!=0){
                 row[i]*=2;
                 row[i+1]=0;
+                score+=row[i];
+                setScore(score);
                 rezult=true;
             }
         }while(++i<(row.length-1));
