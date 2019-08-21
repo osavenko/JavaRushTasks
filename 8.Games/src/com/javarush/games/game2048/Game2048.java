@@ -4,6 +4,7 @@ import com.javarush.engine.cell.*;
 public class Game2048 extends Game{
     private static final int SIDE = 4;
     private int[][] gameField = new int[SIDE][SIDE];
+
     @Override
     public void initialize() {
         super.initialize();
@@ -76,27 +77,54 @@ public class Game2048 extends Game{
     public void onKeyPress(Key key) {
         super.onKeyPress(key);
         if (key==Key.LEFT){
-            moveLeft();    
+            moveLeft();
+            drawScene();
         } else if (key==Key.RIGHT){
             moveRight();
+            drawScene();
         }else if(key==Key.DOWN){
             moveDown();
+            drawScene();
         }else if(key==Key.UP){
             moveUp();
+            drawScene();
         }
     }
 
     private void moveUp() {
+        rotateClockwise();
+        rotateClockwise();
+        rotateClockwise();
+        moveLeft();
+        rotateClockwise();
     }
 
     private void moveDown() {
+        rotateClockwise();
+        moveLeft();
+        rotateClockwise();
+        rotateClockwise();
+        rotateClockwise();
     }
 
     private void moveLeft(){
-        
+        boolean state = false;
+        for (int i = 0; i < gameField.length; i++) {
+            boolean b1 = compressRow(gameField[i]);
+            boolean b2 = mergeRow(gameField[i]);
+            boolean b3 = compressRow(gameField[i]);
+            if (b1||b2||b3) {
+                state = true;
+            }
+        }
+        if (state) createNewNumber();
     }
     private void moveRight(){
-        
+        rotateClockwise();
+        rotateClockwise();
+        moveLeft();
+        rotateClockwise();
+        rotateClockwise();
     }
     private boolean mergeRow(int[] row){
         boolean rezult = false;
@@ -110,5 +138,19 @@ public class Game2048 extends Game{
             }
         }while(++i<(row.length-1));
         return rezult;
+    }
+    private void rotateClockwise(){
+        int [][] cloneGameField = new int[SIDE][SIDE];
+        for (int i = 0; i < cloneGameField.length; i++) {
+            for (int j = 0; j < cloneGameField.length; j++) {
+                cloneGameField[i][j] = gameField[SIDE-1-j][i];
+            }
+        }
+        for (int i = 0; i < cloneGameField.length; i++) {
+            for (int j = 0; j < cloneGameField.length; j++) {
+                gameField[i][j] = cloneGameField[i][j];
+            }
+        }
+
     }
 }
