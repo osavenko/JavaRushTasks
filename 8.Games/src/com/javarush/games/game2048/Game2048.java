@@ -172,4 +172,24 @@ public class Game2048 extends Game{
         }
         return max;
     }
+    private boolean canUserMove(){
+        boolean rezult = false;
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                if (gameField[i][j]==0) return true;
+            }
+        }
+        for (int i = 0; i < SIDE-1; i++) {
+            for (int j = 0; j < SIDE; j++) {
+                if (gameField[i][j]==gameField[i+1][j]) return true;
+            }
+        }
+
+        for (int i = 0; i < SIDE; i++) {
+            for (int j = 0; j < SIDE-1; j++) {
+                if (gameField[i][j]==gameField[i][j+1]) return true;
+            }
+        }
+        return rezult;
+    }
 }
