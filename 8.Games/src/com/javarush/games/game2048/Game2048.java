@@ -44,7 +44,10 @@ public class Game2048 extends Game{
         isGameStopped = true;
         showMessageDialog(Color.BLACK,"Сам в шоке, но таки да, ПОБЕДА", Color.YELLOW,16);
     }
-
+    private void gameOver(){
+        isGameStopped = true;
+        showMessageDialog(Color.BLACK,"Старайся лучше!", Color.YELLOW,16);
+    }
     private Color getColorByValue(int value){
         switch (value){
             case 2: return Color.DARKBLUE;
@@ -87,6 +90,10 @@ public class Game2048 extends Game{
     @Override
     public void onKeyPress(Key key) {
         super.onKeyPress(key);
+        if (!canUserMove()) {
+            gameOver();
+            return;
+        };
         if (key==Key.LEFT){
             moveLeft();
             drawScene();
