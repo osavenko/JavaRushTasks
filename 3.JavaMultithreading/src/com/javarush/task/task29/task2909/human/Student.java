@@ -7,7 +7,6 @@ import java.util.List;
 public class Student extends UniversityPerson {
 
     private double averageGrade;
-//    private String university;
     private Date beginningOfSession;
     private Date endOfSession;
     private int course;
@@ -23,18 +22,13 @@ public class Student extends UniversityPerson {
         return "Студент";
     }
 
-/*
-    public Student(String name, int age, double averageGrade) {
-        //super(false);
-        super(name, age);
+    public void setCourse(int course) {
+        this.course = course;
+    }
 
-        this.name = name;
-        this.age = age;
-
+    public void setAverageGrade(double averageGrade) {
         this.averageGrade = averageGrade;
     }
-*/
-
 
     public int getCourse() {
         return course;
@@ -47,7 +41,44 @@ public class Student extends UniversityPerson {
     public void learn() {
     }
 
+
+
+    public void incAverageGradeBy01() {
+        averageGrade += 0.1;
+    }
+
+    public void incAverageGradeBy02() {
+        averageGrade += 0.2;
+    }
+
+
+    public void setBeginningOfSession(int day, int month, int year) {
+        beginningOfSession = new Date(year, month, day);
+    }
+
+    public void setEndOfSession(int day, int month, int year) {
+        endOfSession = new Date(year, month, day);
+    }
+
+    public double getAverageGrade() {
+        return averageGrade;
+    }
+
+
+    //    private String university;
+
 /*
+    public void setValue(String name, double value) {
+        if (name.equals("averageGrade")) {
+            averageGrade = value;
+            return;
+        }
+        if (name.equals("course")) {
+            course = (int) value;
+            return;
+        }
+    }*/
+    /*
     public String getUniversity() {
         return university;
     }
@@ -61,34 +92,17 @@ public class Student extends UniversityPerson {
         System.out.println(getPosition()+": " + name);
     }*/
 
-    public void incAverageGradeBy01() {
-        averageGrade += 0.1;
-    }
+/*
+    public Student(String name, int age, double averageGrade) {
+        //super(false);
+        super(name, age);
 
-    public void incAverageGradeBy02() {
-        averageGrade += 0.2;
-    }
+        this.name = name;
+        this.age = age;
 
-    public void setValue(String name, double value) {
-        if (name.equals("averageGrade")) {
-            averageGrade = value;
-            return;
-        }
-        if (name.equals("course")) {
-            course = (int) value;
-            return;
-        }
+        this.averageGrade = averageGrade;
     }
+*/
 
-    public void setBeginningOfSession(int day, int month, int year) {
-        beginningOfSession = new Date(year, month, day);
-    }
 
-    public void setEndOfSession(int day, int month, int year) {
-        endOfSession = new Date(year, month, day);
-    }
-
-    public double getAverageGrade() {
-        return averageGrade;
-    }
 }
