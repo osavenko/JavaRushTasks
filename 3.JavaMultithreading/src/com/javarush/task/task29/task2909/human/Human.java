@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Human implements Alive{
     private List<Human> children = new ArrayList<>();
-    public static int nextId = 0;
+    private static int nextId = 0;
     private int id;
     protected int age;
     protected String name;
@@ -28,9 +28,6 @@ public class Human implements Alive{
     public List<Human> getChildren() {
         return Collections.unmodifiableList(children);
     }
-/*    public void setChildren(List<Human> children) {
-        this.children = children;
-    }*/
     public void addChild(Human child){
         children.add(child);
     }
@@ -45,13 +42,6 @@ public class Human implements Alive{
         return bloodGroup;
     }
 
-/*
-    public Human(boolean isSoldier) {
-        this.isSoldier = isSoldier;
-        this.id = nextId;
-        nextId++;
-    }
-*/
 
     public Human(String name, int age) {
         this.age = age;
@@ -74,11 +64,6 @@ public class Human implements Alive{
         this.name = name;
     }
 
-/*
-    public int getCourse() {
-        return course;
-    }
-*/
 
     public void live() {
 /*
@@ -87,16 +72,11 @@ public class Human implements Alive{
 */
     }
 
-/*    public void fight() {
-    }*/
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void printSize() {
         System.out.println("Рост: " + size[0] + " Вес: " + size[1]);
@@ -105,5 +85,28 @@ public class Human implements Alive{
     public void printData() {
         System.out.println(getPosition()+": " + name);
     }
+
+/*    public void setChildren(List<Human> children) {
+        this.children = children;
+    }*/
+/*    public void fight() {
+    }*/
+/*
+    public int getCourse() {
+        return course;
+    }
+*/
+/*
+    public Human(boolean isSoldier) {
+        this.isSoldier = isSoldier;
+        this.id = nextId;
+        nextId++;
+    }
+*/
+/*
+    public void setId(int id) {
+        this.id = id;
+    }
+*/
 
 }
