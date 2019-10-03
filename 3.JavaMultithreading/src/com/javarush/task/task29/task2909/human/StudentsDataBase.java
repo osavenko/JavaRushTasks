@@ -1,20 +1,19 @@
 package com.javarush.task.task29.task2909.human;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StudentsDataBase {
     public static List<Student> students = new ArrayList<>();
 
-    public static void addInfoAboutStudent(String name, int age, double averageGrade) {
-        Student student = new Student(name, age, averageGrade);
+    public static void addInfoAboutStudent(Student student) {
         students.add(student);
-        printInfoAboutStudent(student.getName(), student);
-
+        printInfoAboutStudent(student);
     }
 
-    public static void printInfoAboutStudent(String name, Student student) {
-        System.out.println("Имя: " + name + " Возраст: " + student.getAge());
+    public static void printInfoAboutStudent(Student student) {
+        System.out.println("Имя: " + student.getName() + " Возраст: " + student.getAge());
     }
 
     public static void removeStudent(int index) throws IndexOutOfBoundsException {
@@ -37,4 +36,5 @@ public class StudentsDataBase {
             }
         }
     }
+
 }
