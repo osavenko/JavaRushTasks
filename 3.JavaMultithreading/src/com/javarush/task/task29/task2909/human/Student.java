@@ -19,6 +19,9 @@ public class Student extends UniversityPerson {
         this.endOfSession = endOfSession;
         this.course = course;
     }
+    public String getPosition(){
+        return "Студент";
+    }
 
 /*
     public Student(String name, int age, double averageGrade) {
@@ -54,9 +57,9 @@ public class Student extends UniversityPerson {
     }
 */
 
-    public void printData() {
-        System.out.println("Студент: " + name);
-    }
+/*    public void printData() {
+        System.out.println(getPosition()+": " + name);
+    }*/
 
     public void incAverageGradeBy01() {
         averageGrade += 0.1;

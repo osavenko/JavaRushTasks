@@ -13,6 +13,13 @@ public class Teacher extends UniversityPerson {
         this.numberOfStudents = numberOfStudents;
 //        this.university = university1;
     }
+    public Teacher(String name, int age, int numberOfStudents){
+        super(name, age, null);
+        this.numberOfStudents = numberOfStudents;
+    }
+    public String getPosition(){
+        return "Преподаватель";
+    }
 
 /*
     public Teacher(String name, int age, int numberOfStudents) {
@@ -46,7 +53,7 @@ public class Teacher extends UniversityPerson {
     }
 */
 
-    public void printData() {
-        System.out.println("Преподаватель: " + name);
-    }
+/*    public void printData() {
+        System.out.println(getPosition()+": " + name);
+    }*/
 }

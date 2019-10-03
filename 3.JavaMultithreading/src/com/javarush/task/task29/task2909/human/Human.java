@@ -14,6 +14,9 @@ public class Human implements Alive{
 
     protected int[] size;
 
+    public String getPosition(){
+        return "Человек";
+    }
 //    protected boolean isSoldier;
 
     public static final int FIRST = 1;
@@ -98,4 +101,9 @@ public class Human implements Alive{
     public void printSize() {
         System.out.println("Рост: " + size[0] + " Вес: " + size[1]);
     }
+
+    public void printData() {
+        System.out.println(getPosition()+": " + name);
+    }
+
 }
