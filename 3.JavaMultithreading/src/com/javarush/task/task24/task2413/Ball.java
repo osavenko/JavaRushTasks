@@ -52,11 +52,16 @@ public class Ball extends BaseObject{
 
     @Override
     void move() {
-
+        if(isFrozen) return;
+        this.setX(this.getX()+this.getDx());
+        this.setY(this.getY()+this.getDy());
     }
 
     @Override
     void draw(Canvas canvas) {
-
+        canvas.setPoint(this.getX(), this.getY(),'O');
+    }
+    void start(){
+        isFrozen = false;
     }
 }
