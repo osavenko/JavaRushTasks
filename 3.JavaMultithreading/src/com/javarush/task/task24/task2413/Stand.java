@@ -29,6 +29,8 @@ public class Stand extends BaseObject{
 
     @Override
     void move() {
-
+        this.setX(this.getX()+(this.direction*this.speed));
     }
+    void moveLeft(){ this.direction=-1;}
+    void moveRight(){ this.direction=1;}
 }
