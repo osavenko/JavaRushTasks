@@ -51,4 +51,11 @@ public class Canvas {
             }
         }
     }
+    public void clear(){
+        matrix = new char[height+2][width+2];
+    }
+    public void print(){
+        for(char[] line:matrix)
+            System.out.println(new String(line));
+    }
 }
