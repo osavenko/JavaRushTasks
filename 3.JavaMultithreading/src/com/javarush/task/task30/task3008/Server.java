@@ -31,6 +31,13 @@ public class Server {
                 }
             }
         }
+        private void notifyUsers(Connection connection, String userName) throws IOException{
+            for(String key:connectionMap.keySet()){
+                Message message = new Message(MessageType.USER_ADDED,key);
+                if(!key.equals(userName))
+                    connection.send(message);
+            }
+        }
     }
     public static void main(String[] args) throws IOException {
 
