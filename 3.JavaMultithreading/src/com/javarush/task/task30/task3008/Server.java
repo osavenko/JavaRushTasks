@@ -38,6 +38,19 @@ public class Server {
                     connection.send(message);
             }
         }
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException{
+            while(true){
+                Message message = connection.receive();
+                if(message.getType() == MessageType.TEXT){
+                    String s = userName+": "+message.getData();
+
+                    Message mess = new Message(MessageType.TEXT,s);
+                    sendBroadcastMessage(mess);
+                }else{
+                    ConsoleHelper.writeMessage("Error");
+                }
+            }
+        }
     }
     public static void main(String[] args) throws IOException {
 
