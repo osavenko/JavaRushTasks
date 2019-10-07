@@ -3,6 +3,7 @@ package com.javarush.task.task30.task3008;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -14,23 +15,34 @@ public class Server {
 
         @Override
         public void run() {
-            ConsoleHelper.writeMessage("Установленно соединение с адресом " + socket.getLocalSocketAddress().toString());
-            String userName = null;
-            try(Connection connection = new Connection(socket)){
+            ConsoleHelper.writeMessage("Установленно соединение с адресом " + socket.getRemoteSocketAddress());
+            String clientName = null;
+            //Создаем Connection
+            try (Connection connection = new Connection(socket)) {
+                //Выводить сообщение, что установлено новое соединение с удаленным адресом
                 ConsoleHelper.writeMessage("Подключение к порту: " + connection.getRemoteSocketAddress());
-                userName = serverHandshake(connection);
-                sendBroadcastMessage(new Message(MessageType.USER_ADDED,userName));
-                notifyUsers(connection, userName);
-                serverMainLoop(connection,userName);
+                //Вызывать метод, реализующий рукопожатие с клиентом, сохраняя имя нового клиента
+                clientName = serverHandshake(connection);
+                //Рассылать всем участникам чата информацию об имени присоединившегося участника (сообщение с типом USER_ADDED)
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, clientName));
+                //Сообщать новому участнику о существующих участниках
+                notifyUsers(connection, clientName);
+                //Запускать главный цикл обработки сообщений сервером
+                serverMainLoop(connection, clientName);
 
-            }catch (IOException ex){
+                //После того как все исключения обработаны, удаляем запись из connectionMap
+                connectionMap.remove(clientName);
+                //и отправлялем сообщение остальным пользователям
+                sendBroadcastMessage(new Message(MessageType.USER_REMOVED, clientName));
+
+                ConsoleHelper.writeMessage("Соединение с удаленным адресом закрыто");
+
+            } catch (IOException e) {
                 ConsoleHelper.writeMessage("Ошибка при обмене данными с удаленным адресом");
-            } catch (ClassNotFoundException ex){
+            } catch (ClassNotFoundException e) {
                 ConsoleHelper.writeMessage("Ошибка при обмене данными с удаленным адресом");
             }
-            connectionMap.remove(userName);
-            sendBroadcastMessage(new Message(MessageType.USER_REMOVED,userName));
-            ConsoleHelper.writeMessage("Соединение с удаленным адресом закрыто");
+
         }
 
         public Handler(Socket socket) {
@@ -77,10 +89,11 @@ public class Server {
 
         ConsoleHelper.writeMessage("Введите порт сервера: ");
         int serverPort = ConsoleHelper.readInt();
-        ServerSocket serverSocket = null;
-        try {
-            serverSocket = new ServerSocket(serverPort);
-            ConsoleHelper.writeMessage("Сервер запущен...");
+
+        try (ServerSocket serverSocket = new ServerSocket(serverPort)) {
+
+            ConsoleHelper.writeMessage("Сервер запущен");
+
             while (true) {
                 //Слушаем
                 Socket socket = serverSocket.accept();
@@ -88,10 +101,6 @@ public class Server {
                 //запускаем handler
                 handler.start();
             }
-        } catch (IOException e){
-
-        }finally {
-            serverSocket.close();
         }
     }
     public static void sendBroadcastMessage(Message message){
