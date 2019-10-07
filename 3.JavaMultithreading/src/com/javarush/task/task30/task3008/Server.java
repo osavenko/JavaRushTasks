@@ -12,6 +12,27 @@ public class Server {
     private static class Handler extends Thread{
         private Socket socket;
 
+        @Override
+        public void run() {
+            ConsoleHelper.writeMessage("Установленно соединение с адресом " + socket.getLocalSocketAddress().toString());
+            String userName = null;
+            try(Connection connection = new Connection(socket)){
+                ConsoleHelper.writeMessage("Подключение к порту: " + connection.getRemoteSocketAddress());
+                userName = serverHandshake(connection);
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED,userName));
+                notifyUsers(connection, userName);
+                serverMainLoop(connection,userName);
+
+            }catch (IOException ex){
+                ConsoleHelper.writeMessage("Ошибка при обмене данными с удаленным адресом");
+            } catch (ClassNotFoundException ex){
+                ConsoleHelper.writeMessage("Ошибка при обмене данными с удаленным адресом");
+            }
+            connectionMap.remove(userName);
+            sendBroadcastMessage(new Message(MessageType.USER_REMOVED,userName));
+            ConsoleHelper.writeMessage("Соединение с удаленным адресом закрыто");
+        }
+
         public Handler(Socket socket) {
             this.socket = socket;
         }
