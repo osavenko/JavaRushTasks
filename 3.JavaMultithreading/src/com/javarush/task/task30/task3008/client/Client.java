@@ -6,6 +6,7 @@ import com.javarush.task.task30.task3008.Message;
 import com.javarush.task.task30.task3008.MessageType;
 
 import java.io.IOException;
+import java.net.Socket;
 
 public class Client {
     protected Connection connection = null;
@@ -26,6 +27,23 @@ public class Client {
             synchronized (Client.this){
                 Client.this.notify();
             }
+        }
+
+        @Override
+        public void run() {
+            String serverAddress = getServerAddress();
+            int serverPort = getServerPort();
+            Socket socket = null;
+            try {
+                socket = new Socket(getServerAddress(), getServerPort());
+                connection = new Connection(socket);
+                clientHandshake();
+                clientMainLoop();
+            } catch (IOException | ClassNotFoundException e) {
+                notifyConnectionStatusChanged(false);
+            } /*catch (ClassNotFoundException ex){
+                notifyConnectionStatusChanged(false);
+            }*/
         }
 
         protected void clientHandshake() throws IOException, ClassNotFoundException{
