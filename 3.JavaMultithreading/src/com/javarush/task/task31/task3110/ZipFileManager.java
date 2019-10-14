@@ -21,6 +21,28 @@ public class ZipFileManager {
     public ZipFileManager(Path zipFile) {
         this.zipFile = zipFile;
     }
+    public void extractAll(Path outputFolder) throws Exception{
+        if(!Files.isRegularFile(zipFile)) throw new WrongZipFileException();
+        try (ZipInputStream zip = new ZipInputStream(Files.newInputStream(zipFile))) {
+            if (Files.notExists(outputFolder))
+                Files.createDirectories(outputFolder);
+
+            ZipEntry zipEntry = zip.getNextEntry();
+
+            while (zipEntry != null) {
+                String fileName = zipEntry.getName();
+                Path fileFullName = outputFolder.resolve(fileName);
+                Path parent = fileFullName.getParent();
+                if (Files.notExists(parent))
+                    Files.createDirectories(parent);
+
+                try (OutputStream outputStream = Files.newOutputStream(fileFullName)) {
+                    copyData(zip, outputStream);
+                }
+                zipEntry = zip.getNextEntry();
+            }
+        }
+    }
 
     public void createZip(Path source) throws Exception {
         // Проверяем, существует ли директория, где будет создаваться архив

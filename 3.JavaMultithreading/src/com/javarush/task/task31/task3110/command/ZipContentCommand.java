@@ -10,12 +10,16 @@ public class ZipContentCommand extends ZipCommand {
     @Override
     public void execute() throws Exception {
         ConsoleHelper.writeMessage("Просмотр содержимого архива.");
-        ZipFileManager fileManager = getZipFileManager();
-        ConsoleHelper.writeMessage( "Содержимое архива:");
-        List<FileProperties> fileList = fileManager.getFilesList();
-        for (FileProperties f:fileList){
-            ConsoleHelper.writeMessage(f.toString());
+
+        ZipFileManager zipFileManager = getZipFileManager();
+
+        ConsoleHelper.writeMessage("Содержимое архива:");
+
+        List<FileProperties> files = zipFileManager.getFilesList();
+        for (FileProperties file : files) {
+            ConsoleHelper.writeMessage(file.toString());
         }
+
         ConsoleHelper.writeMessage("Содержимое архива прочитано.");
     }
 }
