@@ -22,6 +22,14 @@ public class View extends JFrame implements ActionListener {
         this.controller = controller;
     }
 
+    public View() throws HeadlessException {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            ExceptionHandler.log(e);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -31,7 +39,19 @@ public class View extends JFrame implements ActionListener {
         this.addWindowListener(new FrameListener(this));
         this.setVisible(true);
     }
-    public void initMenuBar() {}
+    public void initMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        MenuHelper.initFileMenu(this,menuBar);
+        MenuHelper.initEditMenu(this,menuBar);
+        MenuHelper.initStyleMenu(this,menuBar);
+        MenuHelper.initAlignMenu(this,menuBar);
+        MenuHelper.initColorMenu(this,menuBar);
+        MenuHelper.initFontMenu(this,menuBar);
+        MenuHelper.initHelpMenu(this,menuBar);
+
+        getContentPane().add(menuBar, BorderLayout.NORTH);
+
+    }
     public void initEditor() {
         htmlTextPane.setContentType("text/html");
 
