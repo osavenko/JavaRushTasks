@@ -14,7 +14,8 @@ public class UndoMenuListener implements MenuListener {
     // Проверка доступности пунктов перед показом меню
     @Override
     public void menuSelected(MenuEvent e) {
-
+        undoMenuItem.setEnabled(view.canUndo());
+        redoMenuItem.setEnabled(view.canRedo());
     }
 
     @Override
