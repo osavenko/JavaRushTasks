@@ -19,7 +19,7 @@ public class Controller {
         this.view = view;
     }
     public void init(){
-
+        createNewDocument();
     }
     public void resetDocument(){
         if(document!=null){
@@ -59,6 +59,11 @@ public class Controller {
 
     }
     public void createNewDocument(){
+        view.selectHtmlTab();
+        resetDocument();
+        view.setTitle("Мой HTML редактор");
+        view.resetUndo();
+        currentFile = null;
 
     }
     public void openDocument(){

@@ -26,6 +26,7 @@ public class View extends JFrame implements ActionListener {
     }
     public void resetUndo(){
         undoManager.discardAllEdits();
+
     }
     public Controller getController() {
         return controller;
