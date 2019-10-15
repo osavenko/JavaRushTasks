@@ -88,6 +88,16 @@ public class View extends JFrame implements ActionListener {
     public void selectedTabChanged(){
 
     }
+    public void selectHtmlTab(){
+        tabbedPane.setSelectedIndex(0);
+        resetUndo();
+    }
+    public void update() {
+        htmlTextPane.setDocument(controller.getDocument());
+    }
+    public void showAbout() {
+        JOptionPane.showMessageDialog(getContentPane(), "Эта программа работает и это хорощо!", "Все что нужно здесь", JOptionPane.INFORMATION_MESSAGE);
+    }
     public boolean canUndo(){
         return undoManager.canUndo();
     }
