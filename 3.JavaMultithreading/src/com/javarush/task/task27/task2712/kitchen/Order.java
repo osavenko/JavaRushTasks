@@ -22,4 +22,11 @@ public class Order {
     public boolean isEmpty() {
         return dishes.isEmpty();
     }
+    public int getTotalCookingTime() {
+        int cookingTime = 0;
+        for (Dish dish: dishes) {
+            cookingTime += dish.getDuration();
+        }
+        return cookingTime;
+    }
 }
