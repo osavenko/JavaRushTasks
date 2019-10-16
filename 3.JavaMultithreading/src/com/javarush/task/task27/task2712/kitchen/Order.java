@@ -19,4 +19,7 @@ public class Order {
     public String toString() {
         return dishes.isEmpty() ? "" : "Your order: " + dishes + " of " + tablet;
     }
+    public boolean isEmpty() {
+        return dishes.isEmpty();
+    }
 }
