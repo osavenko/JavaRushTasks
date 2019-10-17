@@ -10,6 +10,6 @@ public class AdvertisementManager {
         this.timeSeconds = timeSeconds;
     }
     public void processVideos(){
-        ConsoleHelper.writeMessage("calling processVideos method");
+
     }
 }
