@@ -12,6 +12,11 @@ public class Model {
     public Model() {
         resetGameTiles();
     }
+
+    public Tile[][] getGameTiles() {
+        return gameTiles;
+    }
+
     void resetGameTiles(){
         gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
         for (int i = 0; i<FIELD_WIDTH; i++) {
@@ -127,5 +132,23 @@ public class Model {
                 gameTiles[len - 1 - j][k] = tmp;
             }
         }
+    }
+
+    public boolean canMove() {
+        if (!getEmptyTiles().isEmpty())
+            return true;
+        for (int i = 0; i < gameTiles.length; i++) {
+            for (int j = 1; j < gameTiles.length; j++) {
+                if (gameTiles[i][j].value == gameTiles[i][j - 1].value)
+                    return true;
+            }
+        }
+        for (int j = 0; j < gameTiles.length; j++) {
+            for (int i = 1; i < gameTiles.length; i++) {
+                if (gameTiles[i][j].value == gameTiles[i - 1][j].value)
+                    return true;
+            }
+        }
+        return false;
     }
 }
