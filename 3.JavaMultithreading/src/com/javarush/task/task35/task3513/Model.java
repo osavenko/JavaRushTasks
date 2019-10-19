@@ -2,6 +2,7 @@ package com.javarush.task.task35.task3513;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Model {
     private static final int FIELD_WIDTH = 4;
@@ -9,8 +10,37 @@ public class Model {
     int score;
     int maxTile;
 
+
+    private Stack<Integer> previousScores;
+    private Stack<Tile[][]> previousStates;
+    private boolean isSaveNeeded = true;
+
+    // сохраняет состояние в стек
+    private void saveState(Tile[][] field) {
+        Tile[][] fieldToSave = new Tile[field.length][field[0].length];
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+                fieldToSave[i][j] = new Tile(field[i][j].value);
+            }
+        }
+        previousStates.push(fieldToSave);
+        int scoreToSave = score;
+        previousScores.push(scoreToSave);
+        isSaveNeeded = false;
+    }
+
+    // откат на один ход назад
+    public void rollback() {
+        if (!previousStates.isEmpty() && !previousScores.isEmpty()) {
+            this.score = previousScores.pop();
+            this.gameTiles = previousStates.pop();
+        }
+    }
+
     public Model() {
         resetGameTiles();
+        this.previousScores = new Stack<Integer>();
+        this.previousStates = new Stack<Tile[][]>();
     }
 
     public Tile[][] getGameTiles() {
