@@ -7,14 +7,20 @@ public class MoonLanderGame extends Game {
     public static final int HEIGHT = 64;
 
     private Rocket rocket;
+    private GameObject landscape;
+    private void createGameObjects(){
+        rocket = new Rocket(WIDTH/2,0);
+        landscape = new GameObject(0, 25, ShapeMatrix.LANDSCAPE);
+    }
     @Override
     public void initialize() {
 
         setScreenSize(WIDTH, HEIGHT);
+        showGrid(false);
         createGame();
     }
     private void createGame(){
-        rocket = new Rocket(WIDTH/2,0);
+        createGameObjects();
 
         drawScene();
     }
@@ -24,6 +30,7 @@ public class MoonLanderGame extends Game {
                 setCellColor(i, j, Color.AQUA);
             }
         }
+        landscape.draw(this);
         rocket.draw(this);
     }
 
