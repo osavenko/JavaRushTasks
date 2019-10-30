@@ -1,4 +1,5 @@
 package com.javarush.games.moonlander;
+import com.javarush.engine.cell.*;
 
 public class GameObject {
     public double x;
@@ -9,5 +10,8 @@ public class GameObject {
         this.x = x;
         this.y = y;
         this.matrix = matrix;
+    }
+    public void draw(Game game){
+
     }
 }
