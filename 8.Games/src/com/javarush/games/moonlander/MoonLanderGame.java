@@ -8,6 +8,11 @@ public class MoonLanderGame extends Game {
 
     private Rocket rocket;
     private GameObject landscape;
+
+    private boolean isUpPressed;
+    private boolean isLeftPressed;
+    private boolean isRightPressed;
+
     private void createGameObjects(){
         rocket = new Rocket(WIDTH/2,0);
         landscape = new GameObject(0, 25, ShapeMatrix.LANDSCAPE);
@@ -22,6 +27,11 @@ public class MoonLanderGame extends Game {
     private void createGame(){
         createGameObjects();
         setTurnTimer(50);
+
+        isLeftPressed = false;
+        isRightPressed = false;
+        isUpPressed = false;
+
         drawScene();
     }
 
