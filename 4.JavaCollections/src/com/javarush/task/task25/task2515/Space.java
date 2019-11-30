@@ -46,6 +46,8 @@ public class Space {
         this.ship = ship;
     }
 
+    public static Space game;
+    
     public static void main(String[] args) {
 
     }
