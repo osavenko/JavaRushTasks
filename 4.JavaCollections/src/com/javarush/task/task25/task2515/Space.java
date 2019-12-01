@@ -15,11 +15,11 @@ public class Space {
     //Космический корабль
     private SpaceShip ship;
     //Список НЛО
-    private List<Ufo> ufos = new ArrayList<>();
+    private List<Ufo> ufos = new ArrayList<Ufo>();
     //Список бомб
-    private List<Bomb> bombs = new ArrayList<>();
+    private List<Bomb> bombs = new ArrayList<Bomb>();
     //Список ракет
-    private List<Rocket> rockets = new ArrayList<>();
+    private List<Rocket> rockets = new ArrayList<Rocket>();
 
     public Space(int width, int height) {
         this.width = width;
@@ -93,7 +93,7 @@ public class Space {
      * Метод возвращает общий список, который содержит все объекты игры
      */
     public List<BaseObject> getAllItems() {
-        List<BaseObject> list = new ArrayList<>(ufos);
+        ArrayList<BaseObject> list = new ArrayList<BaseObject>(ufos);
         list.add(ship);
         list.addAll(bombs);
         list.addAll(rockets);
@@ -207,16 +207,16 @@ public class Space {
         this.ship = ship;
     }
 
+    public List<Ufo> getUfos() {
+        return ufos;
+    }
+
     public int getWidth() {
         return width;
     }
 
     public int getHeight() {
         return height;
-    }
-
-    public List<Ufo> getUfos() {
-        return ufos;
     }
 
     public List<Bomb> getBombs() {
