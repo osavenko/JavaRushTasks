@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Controller {
-    Provider[] providers;
+    private Provider[] providers;
 
-    public Controller(Provider... providers) {
+    public Controller(Provider ... providers) {
         if (providers == null || providers.length == 0) {
             throw new IllegalArgumentException();
         }

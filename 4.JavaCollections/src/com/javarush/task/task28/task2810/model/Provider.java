@@ -8,8 +8,6 @@ import java.util.List;
 public class Provider {
     private Strategy strategy;
 
-
-
     public Provider(Strategy strategy) {
         this.strategy = strategy;
     }
@@ -17,7 +15,6 @@ public class Provider {
     public void setStrategy(Strategy strategy) {
         this.strategy = strategy;
     }
-
     public List<Vacancy> getJavaVacancies(String searchString) throws IOException {
         List<Vacancy> vacancies = strategy.getVacancies(searchString);
         return vacancies;
