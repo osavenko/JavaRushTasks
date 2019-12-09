@@ -5,10 +5,12 @@ import com.javarush.task.task26.task2613.exception.InterruptOperationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 
 
 public class ConsoleHelper {
     private static BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "common_en");
 
     public static void writeMessage(String message){
         System.out.println(message);
@@ -25,7 +27,7 @@ public class ConsoleHelper {
         return str;
     }
     public static String askCurrencyCode() throws InterruptOperationException {
-
+        writeMessage(res.getString("choose.currency.code"));
         String userInput = null;
 
         while (true) {
@@ -34,7 +36,8 @@ public class ConsoleHelper {
             if(userInput.length()==3){
                 break;
             }else {
-                writeMessage("Повторите ввод!");
+                writeMessage(res.getString("invalid.data"));
+                writeMessage(res.getString("choose.currency.code"));
             }
 
         }
@@ -42,7 +45,7 @@ public class ConsoleHelper {
         return userInput.toUpperCase();
     }
     public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
-
+        writeMessage(String.format(res.getString("choose.denomination.and.count.format"), "conventional units"));
         String userInput = null;
 
         while (true) {
@@ -51,7 +54,8 @@ public class ConsoleHelper {
             if(userInput.matches("^[1-9]\\d*\\s[1-9]\\d*")) {
                 break;
             } else {
-                writeMessage("Повторите ввод!");
+                writeMessage(res.getString("invalid.data"));
+                writeMessage(String.format(res.getString("choose.denomination.and.count.format"), "conventional units"));
             }
         }
 
@@ -61,18 +65,16 @@ public class ConsoleHelper {
         return twoNumbers == null || ! twoNumbers.matches("^[+]?[1-9]\\d*[ ][+]?[1-9]\\d*");
     }
     public static Operation askOperation() throws InterruptOperationException {
-//        writeMessage(res.getString("choose.operation"));
- //       writeOperationsCodeForUserInput();
+        writeMessage(res.getString("choose.operation"));
+//        writeOperationsCodeForUserInput();
         String userInput = null;
 
         while (true) {
-            //writeMessage(res.getString("invalid.data"));
+            writeMessage(res.getString("invalid.data"));
             writeMessage("Enter code of operation from 1 to 4.");
             userInput = readString();
             if (userInput.matches("[1-4]")){
                 break;
-            }else{
-                writeMessage("Повторите ввод!");
             }
 
         }

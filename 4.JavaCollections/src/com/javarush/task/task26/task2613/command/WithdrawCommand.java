@@ -1,5 +1,6 @@
 package com.javarush.task.task26.task2613.command;
 
+import com.javarush.task.task26.task2613.CashMachine;
 import com.javarush.task.task26.task2613.ConsoleHelper;
 import com.javarush.task.task26.task2613.CurrencyManipulator;
 import com.javarush.task.task26.task2613.CurrencyManipulatorFactory;
@@ -8,11 +9,16 @@ import com.javarush.task.task26.task2613.exception.NotEnoughMoneyException;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 class WithdrawCommand implements Command {
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "withdraw_en");
+
     @Override
     public void execute() throws InterruptOperationException {
+        ConsoleHelper.writeMessage(res.getString("before"));
+
         String currencyCode = ConsoleHelper.askCurrencyCode();
         CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(currencyCode);
 
@@ -20,7 +26,7 @@ class WithdrawCommand implements Command {
 
         while (true) {
             if ( ! currencyManipulator.isAmountAvailable(requiredAmount)) {
-                ConsoleHelper.writeMessage("The requested amount is not available. Please enter a available amount.");
+                ConsoleHelper.writeMessage(res.getString("not.enough.money"));
                 requiredAmount = getRequiredAmount(currencyCode);
                 continue;
             }
@@ -30,7 +36,7 @@ class WithdrawCommand implements Command {
                 withdrawnBills = currencyManipulator.withdrawAmount(requiredAmount);
 
             } catch (NotEnoughMoneyException e) {
-                ConsoleHelper.writeMessage("Shortage of banknotes. Please enter a available amount.");
+                ConsoleHelper.writeMessage(res.getString("exact.amount.not.available"));
                 requiredAmount = getRequiredAmount(currencyCode);
                 continue;
             }
@@ -42,17 +48,17 @@ class WithdrawCommand implements Command {
                 ConsoleHelper.writeMessage("\t" + entry.getKey() + " - " + entry.getValue());
             }
 
-            ConsoleHelper.writeMessage("Withdraw operation was successful.");
+            ConsoleHelper.writeMessage(String.format(res.getString("success.format"), requiredAmount, currencyCode));
             break;
         }
     }
 
     private int getRequiredAmount(String currencyCode) throws InterruptOperationException {
-        ConsoleHelper.writeMessage("Enter the withdraw amount:");
+        ConsoleHelper.writeMessage(res.getString("specify.amount"));
         String userInput = ConsoleHelper.readString();
 
         while (isInvalidStringOfNumber(userInput)) {
-            ConsoleHelper.writeMessage("Invalid number. Enter again valid number:");
+            ConsoleHelper.writeMessage(res.getString("specify.not.empty.amount"));
             userInput = ConsoleHelper.readString();
         }
 
