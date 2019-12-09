@@ -7,6 +7,7 @@ import java.util.Locale;
 
 public class CashMachine {
     public static final String RESOURCE_PATH = CashMachine.class.getPackage().getName() + ".resources.";
+
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
         try {
@@ -20,7 +21,7 @@ public class CashMachine {
             } while (requiredOperation != Operation.EXIT);
 
         } catch (InterruptOperationException interrupt) {
-            ConsoleHelper.writeMessage("By!");
+            ConsoleHelper.printExitMessage();
         }
     }
 }

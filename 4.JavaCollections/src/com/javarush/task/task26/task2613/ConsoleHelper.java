@@ -81,4 +81,7 @@ public class ConsoleHelper {
 
         return Operation.getAllowableOperationByOrdinal(Integer.parseInt(userInput));
     }
+    public static void printExitMessage() {
+        writeMessage("Good bye!");
+    }
 }
