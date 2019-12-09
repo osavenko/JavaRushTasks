@@ -6,21 +6,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
 public class ConsoleHelper {
     private static BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
 
     public static void writeMessage(String message){
         System.out.println(message);
     }
-    public static String readString(){
+    public static String readString()throws InterruptOperationException{
 
         String str = null;
         try {
             str = bis.readLine();
+            if (str.toLowerCase().contains("exit")) {
+                throw new InterruptOperationException();
+            }
         } catch (IOException e){}
         return str;
     }
-    public static String askCurrencyCode(){
+    public static String askCurrencyCode() throws InterruptOperationException {
 
         String userInput = null;
 
@@ -37,7 +41,7 @@ public class ConsoleHelper {
 
         return userInput.toUpperCase();
     }
-    public static String[] getValidTwoDigits(String currencyCode)  {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
 
         String userInput = null;
 
